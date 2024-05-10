@@ -5,9 +5,14 @@ query GetAdminByUsername($username: String!) {
   }
 }
 
+query AdminGetMe($id: uuid!) {
+  admin_by_pk(id: $id) {
+    username
+  }
+}
+
 mutation InsertAdmin($password: String!, $username: String!) {
   insert_admin_one(object: { password: $password, username: $username }) {
     id
   }
 }
-
