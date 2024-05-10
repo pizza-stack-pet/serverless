@@ -1,0 +1,25 @@
+{
+  "name": "serverless",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "netlify dev",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "@netlify/functions": "^2.6.3",
+    "graphql": "^16.8.1",
+    "graphql-request": "^7.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "netlify-cli": "^17.23.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.2",
+    "@graphql-codegen/typescript": "^4.0.6",
+    "@graphql-codegen/typescript-graphql-request": "^6.2.0",
+    "@graphql-codegen/typescript-operations": "^4.2.0",
+    "@graphql-codegen/typescript-resolvers": "4.0.6",
+    "@types/jsonwebtoken": "^9.0.6",
+    "typescript": "^5.4.5"
+  }
+}
