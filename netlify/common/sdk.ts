@@ -19,6 +19,7 @@ export type Scalars = {
 
 export type AdminGetMeOutput = {
   __typename?: 'AdminGetMeOutput';
+  id: Scalars['String'];
   username: Scalars['String'];
 };
 
@@ -40,6 +41,15 @@ export type AdminRegisterInput = {
 export type AdminRegisterOutput = {
   __typename?: 'AdminRegisterOutput';
   accessToken: Scalars['String'];
+};
+
+export type CloudinarySignatureOutput = {
+  __typename?: 'CloudinarySignatureOutput';
+  apiKey: Scalars['String'];
+  cloudName: Scalars['String'];
+  publicId: Scalars['String'];
+  signature: Scalars['String'];
+  timestamp: Scalars['Int'];
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -587,6 +597,7 @@ export type Query_Root = {
   admin_aggregate: Admin_Aggregate;
   /** fetch data from the table: "admin" using primary key columns */
   admin_by_pk?: Maybe<Admin>;
+  cloudinarySignature?: Maybe<CloudinarySignatureOutput>;
   /** fetch data from the table: "menu" */
   menu: Array<Menu>;
   /** fetch aggregated fields from the table: "menu" */
@@ -728,12 +739,12 @@ export type GetAdminByUsernameQueryVariables = Exact<{
 
 export type GetAdminByUsernameQuery = { __typename?: 'query_root', admin: Array<{ __typename?: 'admin', id: any, password: string }> };
 
-export type AdminGetMeQueryVariables = Exact<{
+export type GetAdminByIdQueryVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
 
-export type AdminGetMeQuery = { __typename?: 'query_root', admin_by_pk?: { __typename?: 'admin', username: string } | null };
+export type GetAdminByIdQuery = { __typename?: 'query_root', admin_by_pk?: { __typename?: 'admin', id: any, username: string } | null };
 
 export type InsertAdminMutationVariables = Exact<{
   password: Scalars['String'];
@@ -752,9 +763,10 @@ export const GetAdminByUsernameDocument = gql`
   }
 }
     `;
-export const AdminGetMeDocument = gql`
-    query AdminGetMe($id: uuid!) {
+export const GetAdminByIdDocument = gql`
+    query GetAdminById($id: uuid!) {
   admin_by_pk(id: $id) {
+    id
     username
   }
 }
@@ -777,8 +789,8 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     GetAdminByUsername(variables: GetAdminByUsernameQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAdminByUsernameQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<GetAdminByUsernameQuery>(GetAdminByUsernameDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetAdminByUsername', 'query');
     },
-    AdminGetMe(variables: AdminGetMeQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<AdminGetMeQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<AdminGetMeQuery>(AdminGetMeDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'AdminGetMe', 'query');
+    GetAdminById(variables: GetAdminByIdQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<GetAdminByIdQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<GetAdminByIdQuery>(GetAdminByIdDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetAdminById', 'query');
     },
     InsertAdmin(variables: InsertAdminMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<InsertAdminMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<InsertAdminMutation>(InsertAdminDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'InsertAdmin', 'mutation');
